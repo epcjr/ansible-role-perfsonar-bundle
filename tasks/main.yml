@@ -1,0 +1,14 @@
+---
+# tasks file for perfsonar-bundle
+
+# Install the perfsonar repos and base OS updates
+- name: "{{ ansible_os_family }} Install"
+  include_tasks: "{{ ansible_os_family }}.yml"
+
+# Install the perfsonar packages
+# The bundle is in a variable so that it can be overriden by roles higher up
+- name: Install perfSONAR bundle "{{ perfsonar_bundle }}"
+  package:
+    name: "{{ perfsonar_bundle }}"
+    state: latest
+  when: perfsonar_bundle is defined
